@@ -1,6 +1,8 @@
 import './style.css'
 
 import * as THREE from 'three';
+import { AmbientLight } from 'three.js';
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls' // allows us to move around the scene using just the mouse 
 
 const scene = new THREE.Scene();
 //scene = container
@@ -33,6 +35,34 @@ const material = new THREE.MeshStandardMaterial({color: 0xFF6347, });
 // ** Wireframe allows you to see the internals, like a house with no drywall
 const torus = new THREE.Mesh(geometry, material); // MESH puts the geometry + material together to produce your object
 
+scene.add(torus)
+
+const pointLight = new THREE.PointLight(0xffffff) // PointLight illuminates light in all directions like a lightbulb
+pointLight.position.set(25,25,25) // places light in the center using x,y,z axis
+
+const ambientLight = new THREE.AmbientLight(0xffffff) // illuminates entire scene equally
+scene.add(pointLight, ambientLight) // adds the light source to the scene
+
+const lightHelper = new THREE.PointLightHelper(pointLight) // adds a wireframe camera object to visualize where the light source is
+const gridHelper = new THREE.GridHelper(200, 50); // draws 2d GRID to scene to help with perspective and placement of objects 
+scene.add(lightHelper, gridHelper)
+
+const controls = new OrbitControls(camera, renderer.domElement); // the app will listen to DOM events with the mouse, and move the camera accordingly
+
+function addStar() { // a function to add random stars to scene
+
+const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+const material = new THREE.MeshStandardMaterial({color:0xffffff})
+const star = new THREE.Mesh(geometry, material);
+
+const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread( 400 ) ); //this controls how spread out the stars will be in respect to the canvas size, smaller the number the more condensed the spread
+star.position.set(x, y, z);
+scene.add(star)
+ }
+
+ Array(1000).fill().forEach(addStar)  // pass through is the # of stars on the canvas
+
+
 function animate() {  //render.render(scene, camera) must be called again, it is easier to set up a recursive function with an infinite loop to complete this task
   requestAnimationFrame(animate); // continuously updating UI
   
@@ -40,6 +70,7 @@ function animate() {  //render.render(scene, camera) must be called again, it is
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
   
+  controls.update();
   
   renderer.render (scene, camera);
 }  // also known as a GAME LOOP in gamaing development to keep the enviroment updating with new materials
