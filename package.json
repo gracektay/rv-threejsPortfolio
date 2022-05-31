@@ -1,0 +1,23 @@
+{
+  "name": "threejsportfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rvcoding93/threejsPortfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rvcoding93/threejsPortfolio/issues"
+  },
+  "homepage": "https://github.com/rvcoding93/threejsPortfolio#readme",
+  "dependencies": {
+    "three": "^0.141.0"
+  }
+}
