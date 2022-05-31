@@ -23,10 +23,29 @@ camera.position.setZ(30); // moves camera along Z axis
 
 
 renderer.render(scene, camera); 
+// renderer.setClearColor(0xeef34); - changes background color using Hex
+
 
 const geometry = new THREE.TorusGeometry (10,3,16,100) // built in shapes with three.js, set paramaters to change shape
-const material = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe:true }); // like wrapping paper for geometry shapes, images can be used as well for 'texture'
-// ** some  materials require a light source to bounce off of them for adequate visibility 
+const material = new THREE.MeshStandardMaterial({color: 0xFF6347, }); 
+// like wrapping paper for geometry shapes, images can be used as well for 'texture'
+// ** some  materials (ex. THREE.MeshStandardMaterial)require a light source to bounce off of them for adequate visibility 
 // ** Wireframe allows you to see the internals, like a house with no drywall
+const torus = new THREE.Mesh(geometry, material); // MESH puts the geometry + material together to produce your object
+
+function animate() {  //render.render(scene, camera) must be called again, it is easier to set up a recursive function with an infinite loop to complete this task
+  requestAnimationFrame(animate); // continuously updating UI
+  
+  torus.rotation.x += 0.01;
+  torus.rotation.y += 0.005;
+  torus.rotation.z += 0.01;
+  
+  
+  renderer.render (scene, camera);
+}  // also known as a GAME LOOP in gamaing development to keep the enviroment updating with new materials
+
+animate() 
+
+
 
 
