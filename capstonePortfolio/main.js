@@ -127,7 +127,7 @@ scene.add(Earth)
 
 
 const Fractal = new THREE.Mesh(
-  new THREE.TorusKnotGeometry( 17.939, 1.8117, 69, 7,  15, 4),
+  new THREE.TorusKnotGeometry( 16.939, 1.8117, 69, 7,  16, 4),
   new THREE.MeshNormalMaterial({color: 0xFF47, } ) 
 );
 scene.add(Fractal)
@@ -141,13 +141,24 @@ Earth.position.setX(-10)
 
 function cameraScroll () {
 
+const t = document.body.getBoundingClientRect().top;
 
+Earth.rotation.x += 0.05;
+Earth.rotation.y += 0.075;
+Earth.rotation.z += 0.05;
+
+meBox.rotation.y += 0.01;
+meBox.rotation.z += 0.01;
+
+camera.position.z = t * -0.01;
+camera.position.x = t * -0.0002;
+camera.rotation.y = t * -0.0002;
 
 }
 
 
-
-
+document.body.onscroll = cameraScroll // calls cameraScroll function to responsively scroll display with mouse
+cameraScroll()
 
 function animate() {  //render.render(scene, camera) must be called again, it is easier to set up a recursive function with an infinite loop to complete this task
   requestAnimationFrame(animate); // continuously updating UI
@@ -156,7 +167,7 @@ function animate() {  //render.render(scene, camera) must be called again, it is
   // torus.rotation.y += 0.005;
   // torus.rotation.z += 0.01;
   
-  Fractal.rotation.x += 0.01;
+  // Fractal.rotation.x += 0.01;
   Fractal.rotation.y += 0.005;
   Fractal.rotation.z += 0.01;
 
