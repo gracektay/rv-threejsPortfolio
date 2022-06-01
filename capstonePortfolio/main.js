@@ -68,11 +68,11 @@ const geometry = new THREE.SphereGeometry(0.5, 24, 24);
 const material = new THREE.MeshStandardMaterial({color:0xffffff})
 const star = new THREE.Mesh(geometry, material);
 
-const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread( 300 ) ); //this controls how spread out the stars will be in respect to the canvas size, smaller the number the more condensed the spread
+const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread( 350 ) ); //this controls how spread out the stars will be in respect to the canvas size, smaller the number the more condensed the spread
 star.position.set(x, y, z);
 scene.add(star)
  }
- Array(1000).fill().forEach(addStar)  // pass through is the # of stars on the canvas
+ Array(5000).fill().forEach(addStar)  // pass through is the # of stars on the canvas
 
 
 
@@ -111,11 +111,11 @@ const meBox     = new THREE.Mesh (
 scene.add(meBox)
 
 // Earth Geometry
-const earthTexture = new THREE.TextureLoader().load('Jupiter.jpeg') // Earth texture on the sphere 
+const earthTexture = new THREE.TextureLoader().load('ego.png') // Earth texture on the sphere 
 const normalTexture = new THREE.TextureLoader().load('normal.jpeg') // produces TEXTURE for the ambient light to create shadows and depth with
 
 const Earth = new THREE.Mesh(
-  new THREE.SphereGeometry(3,32,32),
+  new THREE.SphereGeometry(10,32,32),
   new THREE.MeshStandardMaterial({
     map: earthTexture,
     normalMap: normalTexture
@@ -147,8 +147,8 @@ Earth.rotation.x += 0.05;
 Earth.rotation.y += 0.075;
 Earth.rotation.z += 0.05;
 
-meBox.rotation.y += 0.01;
-meBox.rotation.z += 0.01;
+meBox.rotation.y += 0.05;
+meBox.rotation.z += 0.05;
 
 camera.position.z = t * -0.01;
 camera.position.x = t * -0.0002;
@@ -163,9 +163,9 @@ cameraScroll()
 function animate() {  //render.render(scene, camera) must be called again, it is easier to set up a recursive function with an infinite loop to complete this task
   requestAnimationFrame(animate); // continuously updating UI
   
-  // torus.rotation.x += 0.01;
-  // torus.rotation.y += 0.005;
-  // torus.rotation.z += 0.01;
+  meBox.rotation.x += 0.01;
+  meBox.rotation.y += 0.005;
+  meBox.rotation.z += 0.01;
   
   // Fractal.rotation.x += 0.01;
   Fractal.rotation.y += 0.005;
