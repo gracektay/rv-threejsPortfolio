@@ -1,8 +1,7 @@
-import './style.css'
 // import './textAnimation'
+import './style.css'
 
 import * as THREE from 'three';
-import { AmbientLight } from 'three.js';
 
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls' // allows us to move around the scene using just the mouse 
 
